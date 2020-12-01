@@ -22,9 +22,11 @@ public class WebfluxExampleApplication {
 	CommandLineRunner start(ReactiveMongoOperations operations, ProductRepository repository){
 		return args -> {
 			Flux<Product> productFlux = Flux.just(Product.builder()
-					.name("iPhone XS Apple 256GB Dourado 5,8” 12MP - iOS")
-					.description("O iPhone XS tem tela Super Retina de 5,8 polegadas")
-					.price(new BigDecimal(("4.859"))).build()).flatMap(repository::save);
+					.name("Apple - iPhone 11 Pro Max 64GB - Space Gray")
+					.description("6.5-inch Super Retina XDR display*\n" + 
+							"Triple-camera system (Ultra Wide, Wide, Telephoto)\n" + 
+							"A13 Bionic chip")
+					.price(new BigDecimal(("829.92"))).build()).flatMap(repository::save);
 
 				productFlux.thenMany(repository.findAll()).subscribe(System.out::println);
 
