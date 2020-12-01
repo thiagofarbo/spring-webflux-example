@@ -1,13 +1,12 @@
 package br.com.webflux.service;
 
-import br.com.webflux.domain.Product;
-import br.com.webflux.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import br.com.webflux.domain.Product;
+import br.com.webflux.repository.ProductRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.math.BigDecimal;
 
 @Service
 public class ProductService {
@@ -36,4 +35,13 @@ public class ProductService {
             return repository.save(myProduct);
         });
     }
+
+	public Mono<Void> deleteProduct(String id) {
+		return this.repository.findById(id).
+		  flatMap(product -> this.repository.delete(product));
+	}
+
+	public Mono<Void> deleteAllProducts() {
+		return this.repository.deleteAll();
+	}
 }
